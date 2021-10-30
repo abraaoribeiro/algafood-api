@@ -7,21 +7,33 @@ import lombok.Setter;
 
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
-import javax.persistence.Column;
 import javax.persistence.GenerationType;
+
+import java.math.BigDecimal;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FormaPagamento {
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
+    private String nome;
+
     private String descricao;
+
+    private BigDecimal preco;
+
+    private Boolean ativo;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurante_id")
+    private Restaurante restaurante;
 }
