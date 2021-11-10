@@ -31,18 +31,18 @@ public class CidadeController {
     private final CadastroCidadeService cadastroCidadeService;
 
     @GetMapping
-    private List<Cidade> buscarTodos() {
+    public List<Cidade> buscarTodos() {
         return cidadeRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    private Cidade buscarPorId(@PathVariable Long id) {
+    public Cidade buscarPorId(@PathVariable Long id) {
         return cadastroCidadeService.buscarOuFalhar(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Cidade adicionar(@Valid @RequestBody Cidade cidade) {
+    public Cidade adicionar(@Valid @RequestBody Cidade cidade) {
         try {
             return cadastroCidadeService.salvar(cidade);
         }catch (EstadoNaoEncotradaException e){
@@ -51,7 +51,7 @@ public class CidadeController {
     }
 
     @PutMapping("/{id}")
-    private Cidade atualizar(@Valid @PathVariable Long id, @RequestBody Cidade cidade) {
+    public Cidade atualizar(@Valid @PathVariable Long id, @RequestBody Cidade cidade) {
         try {
             Cidade cidadeAtual = cadastroCidadeService.buscarOuFalhar(id);
 
@@ -65,7 +65,7 @@ public class CidadeController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    private void remover(@PathVariable Long id) {
+    public void remover(@PathVariable Long id) {
         cadastroCidadeService.excluirPorId(id);
     }
 }

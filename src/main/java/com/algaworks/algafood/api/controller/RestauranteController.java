@@ -35,18 +35,18 @@ public class RestauranteController {
     private final CadastroRestauranteService cadastroRestauranteService;
 
     @GetMapping
-    private List<Restaurante> buscarTodos() {
+    public List<Restaurante> buscarTodos() {
         return restauranteRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    private Restaurante buscarPorId(@PathVariable Long id) {
+    public Restaurante buscarPorId(@PathVariable Long id) {
         return cadastroRestauranteService.buscarOuFalhar(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Restaurante adicionar(@Valid @RequestBody Restaurante restaurante) {
+    public Restaurante adicionar(@Valid @RequestBody Restaurante restaurante) {
         try {
             return cadastroRestauranteService.salvar(restaurante);
         } catch (CozinhaNaoEncotradaException e) {
@@ -55,7 +55,7 @@ public class RestauranteController {
     }
 
     @PutMapping("/{id}")
-    private Restaurante atualizar(@Valid @PathVariable Long id, @RequestBody Restaurante restaurante) {
+    public Restaurante atualizar(@Valid @PathVariable Long id, @RequestBody Restaurante restaurante) {
         Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(id);
 
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id",
@@ -79,7 +79,7 @@ public class RestauranteController {
         return atualizar(id, restauranteAtual);
     }
 
-    private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
+    public void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
         ObjectMapper objectMapper = new ObjectMapper();
         Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
 
