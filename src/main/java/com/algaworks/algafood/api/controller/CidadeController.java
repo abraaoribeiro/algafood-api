@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -41,7 +42,7 @@ public class CidadeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Cidade adicionar(@RequestBody Cidade cidade) {
+    private Cidade adicionar(@Valid @RequestBody Cidade cidade) {
         try {
             return cadastroCidadeService.salvar(cidade);
         }catch (EstadoNaoEncotradaException e){
@@ -50,7 +51,7 @@ public class CidadeController {
     }
 
     @PutMapping("/{id}")
-    private Cidade atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {
+    private Cidade atualizar(@Valid @PathVariable Long id, @RequestBody Cidade cidade) {
         try {
             Cidade cidadeAtual = cadastroCidadeService.buscarOuFalhar(id);
 

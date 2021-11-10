@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class RestauranteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Restaurante adicionar(@RequestBody Restaurante restaurante) {
+    private Restaurante adicionar(@Valid @RequestBody Restaurante restaurante) {
         try {
             return cadastroRestauranteService.salvar(restaurante);
         } catch (CozinhaNaoEncotradaException e) {
@@ -54,7 +55,7 @@ public class RestauranteController {
     }
 
     @PutMapping("/{id}")
-    private Restaurante atualizar(@PathVariable Long id, @RequestBody Restaurante restaurante) {
+    private Restaurante atualizar(@Valid @PathVariable Long id, @RequestBody Restaurante restaurante) {
         Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(id);
 
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id",
